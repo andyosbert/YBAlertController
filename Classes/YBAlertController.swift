@@ -23,7 +23,8 @@ public class YBAlertController: UIViewController, UIGestureRecognizerDelegate {
     
     // background
     public var overlayColor = UIColor(white: 0, alpha: 0.2)
-    
+    public var alertColor = UIColor.white
+
     // titleLabel
     public var titleFont = UIFont(name: "Avenir Next", size: 15)
     public var titleTextColor = UIColor.black
@@ -70,7 +71,7 @@ public class YBAlertController: UIViewController, UIGestureRecognizerDelegate {
         super.init(nibName: nil, bundle: nil)
         view.frame = UIScreen.main.bounds
         
-        containerView.backgroundColor = UIColor.white
+        containerView.backgroundColor = alertColor
         containerView.clipsToBounds = true
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissAlertController))
@@ -207,7 +208,6 @@ public class YBAlertController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     private func initContainerView() {
-        
         for subView in containerView.subviews {
             subView.removeFromSuperview()
         }
@@ -276,7 +276,7 @@ public class YBAlertController: UIViewController, UIGestureRecognizerDelegate {
         
         for i in 0..<buttons.count {
             buttons[i].frame.origin.y = posY
-            buttons[i].backgroundColor = UIColor.white
+            buttons[i].backgroundColor = alertColor
             buttons[i].buttonColor = buttonIconColor
             buttons[i].frame = CGRect(x: 0, y: posY, width: viewWidth, height: buttonHeight)
             buttons[i].textLabel.textColor = buttonTextColor
@@ -306,7 +306,7 @@ public class YBAlertController: UIViewController, UIGestureRecognizerDelegate {
         
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.frame = CGRect(x: (view.frame.width - viewWidth) / 2, y:view.frame.height , width: viewWidth, height: posY)
-        containerView.backgroundColor = UIColor.white
+        containerView.backgroundColor = alertColor
         view.addSubview(containerView)
         
         
@@ -461,13 +461,14 @@ public class YBButton : UIButton {
         dotView.frame = iconImageView.frame
         dotView.backgroundColor = UIColor.clear
         dotView.isHidden = true
-        addSubview(dotView)
+        // addSubview(dotView)
         
         let labelHeight = frame.height * 0.8
-        textLabel.frame = CGRect(x: iconImageView.frame.maxX + 11, y: frame.midY - labelHeight/2, width: frame.width - iconImageView.frame.maxX, height: labelHeight)
+        textLabel.frame = CGRect(x: 0, y: frame.midY - labelHeight/2, width: frame.width, height: labelHeight)
         textLabel.text = text
         textLabel.textColor = UIColor.black
         textLabel.font = buttonFont
+        textLabel.textAlignment = .center
         addSubview(textLabel)
     }
     
@@ -495,10 +496,10 @@ public class YBButton : UIButton {
     }
     
     override public func draw(_ rect: CGRect) {
-        UIColor(white: 0.85, alpha: 1.0).setStroke()
+        UIColor(white: 0.8, alpha: 0.4).setStroke()
         let line = UIBezierPath()
         line.lineWidth = 1
-        line.move(to: CGPoint(x: iconImageView.frame.maxX + 5, y: frame.height))
+        line.move(to: CGPoint(x: 0, y: frame.height))
         line.addLine(to: CGPoint(x: frame.width , y: frame.height))
         line.stroke()
     }
